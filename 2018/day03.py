@@ -13,15 +13,6 @@ def get_claim_data(claim: str):
     matches = re.search('#(\d+) @ (\d+),(\d+): (\d+)x(\d+)', claim)
     return [int(matches.group(1)), int(matches.group(2)), int(matches.group(3)), int(matches.group(4)), int(matches.group(5))]
 
-# def create_entire_patch(claims: list):
-#     xmax, ymax = 0, 0
-#     for claim in claims:
-#         claim_data = get_claim_data(claim)
-#         xmax = max(xmax, claim_data[0] + claim_data[2])
-#         ymax = max(ymax, claim_data[1] + claim_data[3])
-#     entire_patch = [[0 for x in range(xmax)] for y in range(ymax)]
-#     return entire_patch
-
 def part1(claims: list) ->  int:
     patches, overlapping = {tuple()}, {tuple()}
     for claim in claims:
