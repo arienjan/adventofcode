@@ -1,4 +1,4 @@
-import os, csv, re
+import os, csv, re, operator
 
 script_dir = os.path.dirname(__file__)
 
@@ -41,23 +41,14 @@ def part2(claims: list):
         patches_overlap[claim_data[0]] = 0
         for claim2 in claims:
             claim_data2 = get_claim_data(claim2)
-            xmin = claim_data[1]
-            xmax = claim_data[1] + claim_data[3]
-            ymin = claim_data[2]
-            ymax = claim_data[2] + claim_data[4]
-            claim2_xrange = range(claim_data2[1], claim_data2[1] + claim_data2[3] + 1)
-            claim2_yrange = range(claim_data2[2], claim_data2[2] + claim_data2[4] + 1)
+            claim_xrange = range(claim_data[1], claim_data[1] + claim_data[3])
+            claim_yrange = range(claim_data[2], claim_data[2] + claim_data[4])
+            claim2_xrange = range(claim_data2[1], claim_data2[1] + claim_data2[3])
+            claim2_yrange = range(claim_data2[2], claim_data2[2] + claim_data2[4])
 
-            ## als een claim2 overlap heeft of helemaal in of helemaal buiten valt
-
-            if (xmin in claim2_xrange or xmax in claim2_xrange) and (ymin in claim2_yrange or ymax in claim2_yrange) and claim != claim2:
-                print('x', xmin, xmax, claim2_xrange)
-                print('y', ymin, ymax, claim2_yrange)
-
+            if not list(set(claim_xrange) & set(claim2_xrange)) or not list(set(claim_yrange) & set(claim2_yrange)):
                 patches_overlap[claim_data[0]] += 1
-    for k, v in patches_overlap.items():
-        if v == 0:
-            print(k)
+    return max(patches_overlap.items(), key=operator.itemgetter(1))[0]
 
 if __name__ == "__main__":
     
@@ -68,9 +59,9 @@ if __name__ == "__main__":
 
     print(part1(data))
 
-    #assert part2([
-    #    '#1 @ 1,3: 4x4', 
-    #    '#2 @ 3,1: 4x4', 
-    #    '#3 @ 5,5: 2x2']) == 3
+    assert part2([
+        '#1 @ 1,3: 4x4', 
+        '#2 @ 3,1: 4x4', 
+        '#3 @ 5,5: 2x2']) == 3
 
     print(part2(data))
