@@ -48,7 +48,12 @@ def part2(claims: list):
             claim2_xrange = range(claim_data2[1], claim_data2[1] + claim_data2[3] + 1)
             claim2_yrange = range(claim_data2[2], claim_data2[2] + claim_data2[4] + 1)
 
+            ## als een claim2 overlap heeft of helemaal in of helemaal buiten valt
+
             if (xmin in claim2_xrange or xmax in claim2_xrange) and (ymin in claim2_yrange or ymax in claim2_yrange) and claim != claim2:
+                print('x', xmin, xmax, claim2_xrange)
+                print('y', ymin, ymax, claim2_yrange)
+
                 patches_overlap[claim_data[0]] += 1
     for k, v in patches_overlap.items():
         if v == 0:
