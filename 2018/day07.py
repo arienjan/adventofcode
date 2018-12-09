@@ -31,23 +31,20 @@ def recursive_add(steps, grid, used_nodes, unused_nodes, level):
                         test_node = step[1]
                         for step2 in steps:
                             if step2[1] == test_node:
-                                """
+                                """"""
                                 print('step2[0]', step2[0])
                                 print('possible', possible_nodes)
                                 print('used', used_nodes)
-                                """
+                                
                                 if step2[0] not in possible_nodes and step2[0] not in used_nodes:
                                     add = False
-                                #print(add)
+                                print(add)
                 if add:
                     used_nodes.add(node)   
                     grid[level+1].append(node)
-                    print(grid)
 
                 if not add:
                     unused_nodes_.append(node)
-                #print(used_nodes)
-            #print(possible_nodes)
         level += 1
         return recursive_add(steps, grid, used_nodes, unused_nodes_, level)
 
@@ -140,9 +137,6 @@ if __name__ == "__main__":
         ['D', 'E'],
         ['F', 'E']]
 
-
-    print(data)
-
-    assert part1(testdata) == 'CABDFE'
+    #assert part1(testdata) == 'CABDFE'
     
     print(part1(data))
